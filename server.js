@@ -20,15 +20,20 @@ app.get('/api/notes', (req, res, next) => {
 
   notes.filter(searchTerm, (err, list) => {
     if (err) {
-      return next(err); // goes to error handler
+      return next(err);
     }
-    res.json(list); // responds with filtered array
+    res.json(list);
   });
 });
 
-app.get('/api/notes/:id', (req, res) => {
-  const id = req.params.id;
-  return res.json(data.find(item => item.id === Number(id)));
+app.get('/api/notes/:id', (req, res, next) => {
+  const { id }= req.params;
+  notes.find(id, (err, note) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(note);
+  });
 });
 
 app.use(function(req, res, next) {
