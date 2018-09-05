@@ -5,6 +5,8 @@ const { logger } = require('./middleware/logger');
 
 // Load array of notes
 const data = require('./db/notes');
+const simDB = require('./db/simDB');
+const notes = simDB.initialize(data);
 
 // INSERT EXPRESS APP CODE HERE...
 const express = require('express');
