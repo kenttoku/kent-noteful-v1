@@ -2,6 +2,7 @@
 
 const { PORT } = require('./config');
 const { logger } = require('./middleware/logger');
+
 // Load array of notes
 const data = require('./db/notes');
 
