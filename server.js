@@ -1,6 +1,7 @@
 'use strict';
 
 const { PORT } = require('./config');
+const { logger } = require('./middleware/logger');
 // Load array of notes
 const data = require('./db/notes');
 
@@ -8,6 +9,7 @@ const data = require('./db/notes');
 const express = require('express');
 const app = express();
 
+app.use(logger);
 app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => {
