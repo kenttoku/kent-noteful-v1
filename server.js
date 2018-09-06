@@ -1,11 +1,6 @@
 'use strict';
 
 const { PORT } = require('./config');
-// const { logger } = require('./middleware/logger');
-
-// Load array of notes
-
-// INSERT EXPRESS APP CODE HERE...
 const express = require('express');
 const app = express();
 const notesRouter = require('./router/notes.router');
