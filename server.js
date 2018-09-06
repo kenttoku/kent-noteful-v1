@@ -11,8 +11,9 @@ const notes = simDB.initialize(data);
 // INSERT EXPRESS APP CODE HERE...
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
-app.use(logger);
+app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.json());
 
