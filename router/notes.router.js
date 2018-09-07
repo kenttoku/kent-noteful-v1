@@ -18,12 +18,9 @@ notesRouter.get('/notes', (req, res, next) => {
 
 notesRouter.get('/notes/:id', (req, res, next) => {
   const { id }= req.params;
-  notes.find(id, (err, note) => {
-    if (err) {
-      return next(err);
-    }
-    res.json(note);
-  });
+  notes.find(id)
+    .then(item => item ? res.json(item) : next())
+    .catch(err => next(err));
 });
 
 notesRouter.put('/notes/:id', (req, res, next) => {
