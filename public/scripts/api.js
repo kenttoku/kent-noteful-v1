@@ -12,12 +12,11 @@ const api = {
     });
   },
 
-  details: function (id, callback) {
-    $.ajax({
+  details: function (id) {
+    return $.ajax({
       type: 'GET',
       dataType: 'json',
       url: `/api/notes/${id}`,
-      success: callback
     });
   },
 
