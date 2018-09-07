@@ -8,14 +8,14 @@ const notes = simDB.initialize(data);
 notesRouter.get('/notes', (req, res, next) => {
   const { searchTerm } = req.query;
   notes.filter(searchTerm)
-    .then(list => res.json(list))
+    .then(list => { res.json(list); })
     .catch(err => next(err));
 });
 
 notesRouter.get('/notes/:id', (req, res, next) => {
   const { id }= req.params;
   notes.find(id)
-    .then(item => item ? res.json(item) : next())
+    .then(item => { item ? res.json(item) : next(); })
     .catch(err => next(err));
 });
 
@@ -32,16 +32,9 @@ notesRouter.put('/notes/:id', (req, res, next) => {
     }
   });
 
-  notes.update(id, updateObj, (err, item) => {
-    if (err) {
-      return next(err);
-    }
-    if (item) {
-      res.json(item);
-    } else {
-      next();
-    }
-  });
+  notes.update(id, updateObj)
+    .then(item => { item ? res.json(item) : next(); })
+    .catch(err => next(err)); 
 });
 
 notesRouter.post('/notes', (req, res, next) => {
