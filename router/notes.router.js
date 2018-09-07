@@ -55,17 +55,9 @@ notesRouter.post('/notes', (req, res, next) => {
 
 notesRouter.delete('/notes/:id', (req, res, next) => {
   const { id } = req.params;
-  notes.delete(id, (err, len) => {
-    console.log(err);
-    if (err) {
-      return next(err);
-    }
-    if (len) {
-      return res.status(204).send('No Content');
-    } else {
-      return res.status(500).send('ID not found');
-    }
-  });
+  notes.delete(id)
+    .then(() => res.status(204).send('No Content'))
+    .catch(err => next(err));
 });
 
 module.exports = notesRouter;
