@@ -30,24 +30,22 @@ const api = {
     });
   },
 
-  create: function (obj, callback) {
-    $.ajax({
+  create: function (obj) {
+    return $.ajax({
       type: 'POST',
       url: '/api/notes',
       contentType: 'application/json',
       dataType: 'json',
       processData: false,
-      data: JSON.stringify(obj),
-      success: callback
+      data: JSON.stringify(obj)
     });
   },
 
-  remove: function (id, callback) {
+  remove: function (id) {
     return $.ajax({
       type: 'DELETE',
       url: `/api/notes/${id}`,
-      dataType: 'json',
-      success: callback
+      dataType: 'json'
     });
   }
 

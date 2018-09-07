@@ -95,16 +95,17 @@ const noteful = (function () {
 
       } else {
 
-        api.create(noteObj, createResponse => {
-          store.currentNote = createResponse;
-
-          api.search(store.currentSearchTerm)
-            .then(searchResponse => {
-              store.notes = searchResponse;
-              render();
-            });
-
-        });
+        api.create(noteObj)
+          .then(createResponse => {
+            store.currentNote = createResponse;
+  
+            api.search(store.currentSearchTerm)
+              .then(searchResponse => {
+                store.notes = searchResponse;
+                render();
+              });
+  
+          });
       }
 
     });
@@ -126,18 +127,19 @@ const noteful = (function () {
 
       const noteId = getNoteIdFromElement(event.currentTarget);
 
-      api.remove(noteId, () => {
+      api.remove(noteId)
+        .then(() => {
 
-        api.search(store.currentSearchTerm)
-          .then(searchResponse => {
-            store.notes = searchResponse;
-            if (noteId === store.currentNote.id) {
-              store.currentNote = {};
-            }
-            render();
-          });
-
-      });
+          api.search(store.currentSearchTerm)
+            .then(searchResponse => {
+              store.notes = searchResponse;
+              if (noteId === store.currentNote.id) {
+                store.currentNote = {};
+              }
+              render();
+            });
+  
+        });
     });
   }
 
