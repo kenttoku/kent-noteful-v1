@@ -85,12 +85,10 @@ const noteful = (function () {
           .then(updateResponse => {
             store.currentNote = updateResponse;
   
-            api.search(store.currentSearchTerm)
-              .then(searchResponse => {
-                store.notes = searchResponse;
-                render();
-              });
-  
+            return api.search(store.currentSearchTerm);
+          }).then(searchResponse => {
+            store.notes = searchResponse;
+            render();
           });
 
       } else {
@@ -99,12 +97,10 @@ const noteful = (function () {
           .then(createResponse => {
             store.currentNote = createResponse;
   
-            api.search(store.currentSearchTerm)
-              .then(searchResponse => {
-                store.notes = searchResponse;
-                render();
-              });
-  
+            return api.search(store.currentSearchTerm);
+          }).then(searchResponse => {
+            store.notes = searchResponse;
+            render();
           });
       }
 
@@ -129,16 +125,13 @@ const noteful = (function () {
 
       api.remove(noteId)
         .then(() => {
-
-          api.search(store.currentSearchTerm)
-            .then(searchResponse => {
-              store.notes = searchResponse;
-              if (noteId === store.currentNote.id) {
-                store.currentNote = {};
-              }
-              render();
-            });
-  
+          return api.search(store.currentSearchTerm);
+        }).then(searchResponse => {
+          store.notes = searchResponse;
+          if (noteId === store.currentNote.id) {
+            store.currentNote = {};
+          }
+          render();
         });
     });
   }
